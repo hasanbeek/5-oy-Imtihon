@@ -36,68 +36,86 @@
         background-color: #dc3545;
         color: white;
       }
+      /* app.css - Agar qo'shimcha CSS kerak bo'lsa */
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-10px);
+      }
+      .card h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .card p {
+        font-size: 1rem;
+        color: #555;
+      }
+      .btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #45a049;
+      }
+      .dark {
+        body {
+          background-color: #121212;
+          color: #000000;
+        }
+        body .dark,
+        label {
+          background-color: #121212;
+          color: #000000;
+        }
+        body .dark,
+        h1 {
+          background-color: #121212;
+          color: #ffffff;
+        }
+        /* body .dark, #inp{
+          background-color: #ffffff;
+          color: #121212;
+        } */
+      }
     </style>
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-100 relative p-4">
+    <div class="Sinxronizatsiya flex justify-end">
+      <button
+      id="darkM"
+      class="absolute top-4 right-4 px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-800 font-medium hover:bg-gray-100 hover:text-black shadow-sm transition duration-200"
+    >
+      Dark mode
+    </button>
+    
+    </div>
+    
+    
+    </div>
     <h1 class="my-5 text-5xl text-center font-bold">Asosiy Sahifa</h1>
     <div class="text-center mb-4">
       <a href="smth.html">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded">Add Card</button>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded">
+          Add Card
+        </button>
       </a>
     </div>
 
+    <div
+      id="cardContainer"
+      class="malumotlar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 justify-center items-center"
+    ></div>
+
+    <script src="/js/app.js"></script>
+
     <div id="cardContainer" class="flex flex-wrap justify-center px-4"></div>
-
-    <script>
-      const container = document.getElementById("cardContainer");
-      let cards = JSON.parse(localStorage.getItem("cards")) || [];
-
-      function renderCards() {
-        container.innerHTML = ""; // Clear old cards
-
-        cards.forEach((card, index) => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
-            <h2>${card.name}</h2>
-            <p><strong>Price:</strong> $${card.price}</p>
-            <p><strong>Color:</strong> ${card.color}</p>
-            <button class="btn btn-edit" onclick="editCard(${index})">Edit</button>
-            <button class="btn btn-delete" onclick="deleteCard(${index})">Delete</button>
-          `;
-          container.appendChild(div);
-        });
-      }
-
-      function deleteCard(index) {
-        if (confirm("Haqiqatan ham o'chirmoqchimisiz?")) {
-          cards.splice(index, 1);
-          localStorage.setItem("cards", JSON.stringify(cards));
-          renderCards();
-        }
-      }
-
-      function editCard(index) {
-        const card = cards[index];
-        const newName = prompt("Yangi nom:", card.name);
-        const newPrice = prompt("Yangi narx:", card.price);
-        const newColor = prompt("Yangi rang:", card.color);
-
-        if (newName && newPrice && newColor) {
-          cards[index] = {
-            name: newName,
-            price: newPrice,
-            color: newColor,
-          };
-          localStorage.setItem("cards", JSON.stringify(cards));
-          renderCards();
-        } else {
-          alert("Barcha maydonlarni to‘ldiring!");
-        }
-      }
-
-      // First render
-      renderCards();
-    </script>
   </body>
 </html>
